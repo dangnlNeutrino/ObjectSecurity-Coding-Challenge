@@ -21,7 +21,7 @@ All core modules and classes and methods are stored in `tree.rb` and `jsonHelper
 	
 ## Dependencies
 Project is created with:
-* Homebrew version: 2.5.7
+* RVM version: 1.29.7
 * Ruby version: 2.5.0
 * JSON gem 2.1.0
 
