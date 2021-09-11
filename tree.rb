@@ -25,19 +25,11 @@ module NTree
 			@totalTextLength = 0
 		end
 
-		def printAttributes
-			puts @nodeId
-			puts @textB
-			puts @textD
-			puts @noOfChildren
-			puts @avgTextLen
-			puts @children
-		end
-
 		#method to add child
 		#to list of children of a node
+		#set child's parent
 		def addChild(child)
-			self.children << child
+			@children << child
 			child.parent = self
 		end
 
@@ -66,6 +58,8 @@ module NTree
 			return self.children
 		end
 
+		#return the complete text attr
+		#of given node
 		def getText
 			return self.textB + self.textD
 		end
@@ -116,7 +110,6 @@ def treeTraverse(node,totalString="")
 			#count the number of descendants
 			#including children of children
 			node.children.each do |child| 
-				#text << child.getText
 				count += treeTraverse(child,totalString)
 			end
 		else
