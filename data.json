@@ -1,0 +1,102 @@
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [],
+                  "noOfChildren": 0,
+                  "nodeId": 11,
+                  "avgTextLen": 0,
+                  "textB": "y",
+                  "textD": "ry"
+                },
+                {
+                  "children": [],
+                  "noOfChildren": 0,
+                  "nodeId": 12,
+                  "avgTextLen": 0,
+                  "textB": "?",
+                  "textD": "thing "
+                }
+              ],
+              "noOfChildren": 0,
+              "nodeId": 9,
+              "avgTextLen": 0,
+              "textB": "d",
+              "textD": "eve"
+            }
+          ],
+          "noOfChildren": 0,
+          "nodeId": 4,
+          "avgTextLen": 0,
+          "textB": " Ho",
+          "textD": " "
+        },
+        {
+          "children": [],
+          "noOfChildren": 0,
+          "nodeId": 5,
+          "avgTextLen": 0,
+          "textB": "w are",
+          "textD": "a"
+        }
+      ],
+      "noOfChildren": 0,
+      "nodeId": 2,
+      "avgTextLen": 0,
+      "textB": "Hello ",
+      "textD": "s"
+    },
+    {
+      "children": [
+        {
+          "children": [],
+          "noOfChildren": 0,
+          "nodeId": 6,
+          "avgTextLen": 0,
+          "textB": " you",
+          "textD": "right"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "noOfChildren": 0,
+              "nodeId": 10,
+              "avgTextLen": 0,
+              "textB": "a",
+              "textD": "with "
+            }
+          ],
+          "noOfChildren": 0,
+          "nodeId": 7,
+          "avgTextLen": 0,
+          "textB": " t",
+          "textD": " "
+        },
+        {
+          "children": [],
+          "noOfChildren": 0,
+          "nodeId": 8,
+          "avgTextLen": 0,
+          "textB": "o",
+          "textD": "dfs?"
+        }
+      ],
+      "noOfChildren": 0,
+      "nodeId": 3,
+      "avgTextLen": 0,
+      "textB": "Diego!",
+      "textD": "ll "
+    }
+  ],
+  "noOfChildren": 0,
+  "nodeId": 1,
+  "avgTextLen": 0,
+  "textB": "",
+  "textD": "I"
+}
