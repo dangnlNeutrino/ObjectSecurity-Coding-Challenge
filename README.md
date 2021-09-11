@@ -25,6 +25,9 @@ Project is created with:
 * Ruby version: 2.5.0
 * JSON gem 2.1.0
 
+Test dataset
+* data.json
+
 	
 ## Installation
 To install project's dependencies, install it locally using Ruby Version Manager (RVM):
