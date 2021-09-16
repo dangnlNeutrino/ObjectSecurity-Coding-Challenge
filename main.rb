@@ -10,6 +10,7 @@ require_relative 'jsonHelper.rb'
 include NTree
 
 @rootNode = nil
+@tree = nil
 #step 1
 #Read in JSON data and store as hash
 def challenge2()
@@ -25,6 +26,7 @@ def challenge2()
 		#first node is always the root node
 		puts "Data loaded successfully!!"
 		@rootNode = NTree::Node.new(data["nodeId"],data["textB"],data["textD"])
+		@tree = NTree::Tree.new(@rootNode)
 		genenerateTree(@rootNode,data)
 		puts "Tree constructed successfully!!"
 	else
@@ -37,11 +39,10 @@ end
 #all nodes' IDs	
 def challenge3
 	puts "Challenge #3 solution: "
-	@totalString = ""
-	count = 0 
-	count = treeTraverse(@rootNode,@totalString)
+	count = treeTraverse(@rootNode)
+	puts "Set noOfChildren and avgTextLen for each node!"
 	puts "Root node # of children: " + @rootNode.noOfChildren.to_s
-	puts "Root node average text length: " + @rootNode.avgTextLen.to_s
+	puts "Root node average text length: " + @rootNode.getAvgLen.to_s
 	puts "-----------------------------------"
 end
 
@@ -51,34 +52,36 @@ end
 ##calculate the number of 
 ##nodes in the tree
 def challenge4
-	size = length(@rootNode)
+	@size = length(@rootNode)
 	puts "Challenge #4 solution: "
-	puts "Number of nodes in tree: " + size.to_s
+	puts "Number of nodes in tree: " + @size.to_s
 	puts "-----------------------------------"
+end
+
+#Calculate average length of text values
+# (total number of characters)/(number of nodes * 2)
+#where 2 represents textB and textD fields
+def challenge5
 	puts "Challenge #5 solution: "
-	puts "Average length of text values: " + (@totalString.length / size.to_f).truncate(2).to_s
+	##@tree.getRoot is @rootNode
+	puts "Average length of text values: " + (@tree.getRoot.totalTextLength / (@size*2).to_f).truncate(2).to_s
 	puts "-----------------------------------"
 end
 
 ##Challenge #6
 ##BFS
 def challenge6()
-	tree,textB = bfs(@rootNode)
+	#tree,textB = bfs(@rootNode)
 	puts "Challenge #6 solution: "
-	puts "BFS result: " + tree.join(" ")
-	puts "BFS textB output: " + textB
+	p bfs(@tree)
 	puts "-----------------------------------"
 end
 
 ##Challenge #7
 ##DFS
 def challenge7()
-	output = []
-	s = ""
-	dfs(@rootNode,output,s)
 	puts "Challenge #7 solution: "
-	p "DFS output: " + output.join(" ")
-	puts s
+	p dfs(@tree)
 	puts "-----------------------------------"
 end
 
@@ -87,9 +90,16 @@ end
 challenge2()
 challenge3()
 challenge4()
+challenge5()
 challenge6()
 challenge7()
 
+#p treeTraverse(@rootNode)
+puts @rootNode.getAvgLen.to_s
+#@tree = NTree::Tree.new(@rootNode)
+#p @tree.getRoot
+#p bfs(@tree)
+#p dfs(@tree)
 
 
 

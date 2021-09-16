@@ -1,0 +1,25 @@
+-----------------------------------
+Challenge #1 and #2 solution: 
+Data loaded successfully!!
+Tree constructed successfully!!
+-----------------------------------
+Challenge #3 solution: 
+Set noOfChildren and avgTextLen for each node!
+Root node # of children: 11
+Root node average text length: 2.666
+-----------------------------------
+Challenge #4 solution: 
+Number of nodes in tree: 12
+-----------------------------------
+Challenge #5 solution: 
+Average length of text values: 2.66
+-----------------------------------
+Challenge #6 solution: 
+Hello Diego! How are you today?
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+-----------------------------------
+Challenge #7 solution: 
+Is everything all right with dfs?
+[1, 2, 4, 9, 11, 12, 5, 3, 6, 7, 10, 8]
+-----------------------------------
+2.666

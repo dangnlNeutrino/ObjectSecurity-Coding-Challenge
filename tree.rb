@@ -8,6 +8,22 @@
 module NTree
 
 	##Challenge 1
+	##Construct tree class
+	##for tree initialization
+
+	class Tree
+		attr_accessor :root
+
+		def initialize(node)
+			self.root = node
+		end
+
+		def getRoot()
+			return self.root
+		end
+	end
+
+	##Challenge 1
 	##Construct Node class
 	##with all required attributes
 	class Node
@@ -22,7 +38,7 @@ module NTree
 			@noOfChildren = 0
 			@avgTextLen = 0
 			@parent = nil
-			@totalTextLength = 0
+			@totalTextLength = self.getText.length
 		end
 
 		#method to add child
@@ -39,11 +55,14 @@ module NTree
 			return self.children.length
 		end
 
-		#get all children and
-		#children of children
-		def noOfChildren
-			#subtract 1 from the number of descendants
-			@noOfChildren = length(self) - 1
+		#return the avg text length of all children
+		#inclusive of current node
+		#consider both textB and textD fields
+		def getAvgLen
+			return (self.totalTextLength/((self.noOfChildren + 1)*2.to_f)).truncate(3)
+		end
+
+		def getNoOfChildren
 			return @noOfChildren
 		end
 
@@ -68,9 +87,13 @@ module NTree
 end
 
 #generate tree given node data
+#loop through json
+#and build tree structure
+#starting with the root node
 def genenerateTree(node,data)
 	if !data.empty?
 		if !data["children"].empty?
+			node.noOfChildren = data["children"].length
 			data["children"].each do |element|	
 				currentNode = NTree::Node.new(element["nodeId"],element["textB"],element["textD"])
 				node.addChild(currentNode)
@@ -80,47 +103,33 @@ def genenerateTree(node,data)
 					break
 				end
 			end
-		else
-			
 		end
 	else
 		return
 	end
 end
 
-#recursively traverse tree
-#return the total # of nodes
-#under such tree
-def treeTraverse(node,totalString="")
-	count = 0
-	totalTextLength = 0
-	if node
-		count = 1
-		node.noOfChildren
-		totalString
-		totalTextLength += node.getText.length
-		totalString << node.getText
-		if !node.children.empty?
-			#calculate average textLength
-			#saved as float
-			node.children.each {|e| totalTextLength += e.getText.length}
-			#average text length = total length/#of nodes
-			#including parent node
-			node.avgTextLen = (totalTextLength /((node.children.length + 1) * 2).to_f).truncate(2)
-			#count the number of descendants
-			#including children of children
-			node.children.each do |child| 
-				count += treeTraverse(child,totalString)
+# recursively traverse tree
+# set the number of children for each node
+# set the total length of text
+# from descendants
+def treeTraverse(node)
+	if !node.children.empty?
+		#traverse through each child recursively
+		node.children.each do |child|
+			if node.parent
+				node.parent.noOfChildren += child.noOfChildren 
+			else
+				node.noOfChildren += 1
 			end
-		else
-			node.avgTextLen = (totalTextLength /((node.children.length + 1) * 2).to_f)
-			return count
+			node.noOfChildren += child.noOfChildren
+			node.totalTextLength += treeTraverse(child)
 		end
-	else
-		return count
 	end
-
-	return count
+	#calculate the average length of 
+	#each node's text value
+	node.avgTextLen = node.getAvgLen
+	return node.totalTextLength
 end
 
 
@@ -139,57 +148,72 @@ end
 def length(node)
 	count = 0 if node.nil?
 	count = 1 if node
+	#puts "node's ID: " + node.nodeId.to_s
+	#puts "node's total children: " + node.noOfChildren.to_s
 	node.children.each do |child| 
 		count += length(child)
 	end
 	return count
 end
 
+def bfs(tree)
+	@outputString = ""
+	@outputs = []
+	#traverse tree and track traversal
+	#order with a queue
+	def traverse(node)
+		#implement storage as queue
+		#first element in is also 
+		#first element out
+		nodeQueue = []
+		nodeQueue.push(node)
+		while !nodeQueue.empty?
+			#grab first element
+			currentNode = nodeQueue.shift
+			#if queue has children, then
+			#process the children first
+			if !currentNode.children.empty?
+				currentNode.children.each do |child| 
+					nodeQueue.push(child) 
+				end
+			end
+			#store the node's nodeID in output
+			@outputs.push(currentNode.nodeId)
+			@outputString += currentNode.textB
+		end
+	end
+	traverse(tree.getRoot)
+	puts @outputString
+	return @outputs
+end
+
+
+
 #depth-first search(DFS)
 #Recursively traverse the tree
 #visit children of the leftmost nodes
 #first before traversing to the right
-def dfs(node,outputs=[],stringOutput="")
-	#return an emmpty list if 
-	#root is null
-	return [] if node.nil?
-	#store visited node's ID
-	#into output array
-	outputs << node.nodeId
-	#concatenate textD values
-	#to temp string
-	stringOutput << node.textD
-	node.children.each {|child| dfs(child,outputs,stringOutput)}
-end
-
-
-#breadth-first search
-#visit root node first then children
-def bfs(node)
-	outputString = ""
-	#implement storage as queue
-	#first element in is also 
-	#first element out
-	nodeQueue = []
-	outputs = []
-	nodeQueue.push(node)
-	while !nodeQueue.empty?
-		#grab first element
-		currentNode = nodeQueue.shift
-		#if queue has children, then
-		#process the children first
-		if !currentNode.children.empty?
-			currentNode.children.each do |child| 
-				nodeQueue.push(child) 
-			end
+def dfs(tree)
+	@outputs = []
+	@stringOutput = ""
+	#traverse tree using recursion
+	def traverse(node)
+		if node
+			#store visited node's ID
+			#into output array
+			@outputs << node.nodeId
+			#concatenate textD values
+			#to temp string
+			@stringOutput << node.textD
+			node.children.each {|child| traverse(child)}
 		end
-		#store the node's nodeID in output
-		outputs.push(currentNode.nodeId)
-		outputString += currentNode.textB
 	end
-
-	return outputs,outputString
+	traverse(tree.getRoot)
+	puts @stringOutput
+	return @outputs
 end
+
+
 
 
 
